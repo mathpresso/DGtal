@@ -24,7 +24,7 @@ from dgtalVersion import get_versions
 #     with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 #         long_description = f.read()
 
-long_description= r'DGtal is an open-source, cross-platform library providing ' \
+long_description = r'DGtal is an open-source, cross-platform library providing ' \
                    'Digital Geometry Tools and Algorithms.'
 setup(
     name='dgtal',
@@ -36,7 +36,7 @@ setup(
     package_data={
         'dgtal': ['tables/*.zlib']
     },
-    cmake_source_dir='../..', # Top CMakeLists.txt directory
+    cmake_source_dir='../..',  # Top CMakeLists.txt directory
     cmake_args=[
         '-DCMAKE_BUILD_TYPE=Release',
         '-DBUILD_SHARED_LIBS:BOOL=OFF',
@@ -67,10 +67,10 @@ setup(
         "Operating System :: POSIX",
         "Operating System :: Unix",
         "Operating System :: MacOS"
-        ],
+    ],
     license='LGPLv3',
     keywords=r'DGtal image digital topology processing',
     url=r'https://github.com/DGtal-team/DGtal',
     install_requires=[
     ]
-    )
+)

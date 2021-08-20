@@ -6,6 +6,8 @@ compile_commands.json
 xcode*/
 build*/
 cmake/Install.cmake.user
+cmake-build-debug
+cmake-build-release
 qtcreatorbuild/
 *.orig
 install
@@ -20,15 +22,10 @@ install
 \.clang_complete
 
 src/DGtal/shapes/doc/\.#packageShapes\.dox
-
 src/DGtal/shapes/doc/#packageShapes\.dox#
-
 tests/base/testTrace2\.cpp
-
 tests/base/testTrace3\.cpp
-
 tests/io/readers/#testGenericReader\.cpp#
-
 src/DGtal/io/writers/\.#MagickWriter\.h
 
 .DS_Store
@@ -36,6 +33,7 @@ src/DGtal/io/writers/\.#MagickWriter\.h
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
+.idea
 *.py[cod]
 # Deploy artifacts
 wrap/deploy/_skbuild/

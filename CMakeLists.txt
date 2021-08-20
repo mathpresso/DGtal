@@ -1,16 +1,16 @@
 # -----------------------------------------------------------------------------
 # Project definition
 # -----------------------------------------------------------------------------
-cmake_minimum_required (VERSION 3.11)
+cmake_minimum_required(VERSION 3.11)
 cmake_policy(SET CMP0048 OLD) # project() doesn't have VERSION
-project (DGtal)
+project(DGtal)
 
 # -----------------------------------------------------------------------------
 # By default, do not warn when built on machines using only VS Express:
 # -----------------------------------------------------------------------------
-if(NOT DEFINED CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_NO_WARNINGS)
+if (NOT DEFINED CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_NO_WARNINGS)
     set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_NO_WARNINGS ON)
-endif()
+endif ()
 
 # -----------------------------------------------------------------------------
 # Define variables and cmake parameters, and display some information
@@ -50,28 +50,28 @@ list(TRANSFORM BOARD_SRC PREPEND "src/")
 list(TRANSFORM DGTALIO_SRC PREPEND "src/")
 
 # DGtal Target. Library is added on the top directory to use target_link_libraries for CMake < 3.13
-add_library (DGtal ${DGTAL_SRC} ${DGTALIO_SRC} ${BOARD_SRC} )
+add_library(DGtal ${DGTAL_SRC} ${DGTALIO_SRC} ${BOARD_SRC})
 target_include_directories(DGtal PUBLIC
-  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
-  $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/src>
-  # INSTALL_INTERFACE must not contain absolute paths
-  $<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR_RELATIVE}>
-  )
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/src>
+        # INSTALL_INTERFACE must not contain absolute paths
+        $<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR_RELATIVE}>
+        )
 
 install(TARGETS DGtal
-  # IMPORTANT: Add the DGtal library to the "export-set"
-  EXPORT DGtalLibraryDepends
-  RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin
-  LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT shlib
-  ARCHIVE DESTINATION "${INSTALL_LIB_DIR}"
- #PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/DGtal"
-  COMPONENT dev)
+        # IMPORTANT: Add the DGtal library to the "export-set"
+        EXPORT DGtalLibraryDepends
+        RUNTIME DESTINATION "${INSTALL_BIN_DIR}" COMPONENT bin
+        LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT shlib
+        ARCHIVE DESTINATION "${INSTALL_LIB_DIR}"
+        #PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}/DGtal"
+        COMPONENT dev)
 
 # Misc
-if( CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" )
-  # Add -fPIC
-  set_target_properties(DGtal PROPERTIES POSITION_INDEPENDENT_CODE ON)
-endif()
+if (CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
+    # Add -fPIC
+    set_target_properties(DGtal PROPERTIES POSITION_INDEPENDENT_CODE ON)
+endif ()
 
 # -----------------------------------------------------------------------------
 # Development and debug options

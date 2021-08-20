@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # Assumes that python points to the python you want to use
 # This should be managed from other script, or from CI/CD pipelines
 
