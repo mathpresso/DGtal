@@ -18,7 +18,41 @@ add_subdirectory(images)
 add_subdirectory(io)
 
 set(wrap_header_common
-        dgtal_pybind11_common.h)
+        dgtal_pybind11_common.h
+        )
+set(wrap_header_base
+        base/Common_types_py.h
+        )
+set(wrap_header_images
+        images/ImageContainerBySTLVector_declare_py.h
+        images/ImageContainerBySTLVector_types_py.h
+        )
+set(wrap_header_io
+        io/Color_types_py.h
+        )
+set(wrap_header_kernel
+        kernel/DigitalSetBySTLVector_declare_py.h
+        kernel/DigitalSetBySTLVector_types_py.h
+        kernel/HyperRectDomain_declare_py.h
+        kernel/HyperRectDomain_types_py.h
+        kernel/PointVector_declare_py.h
+        kernel/PointVector_types_py.h
+        )
+set(wrap_header_topology
+        topology/CubicalComplex_declare_py.h
+        topology/CubicalComplex_types_py.h
+        topology/DigitalTopology_declare_py.h
+        topology/DigitalTopology_types_py.h
+        topology/KhalimskyPreSpaceND_declare_py.h
+        topology/KhalimskyPreSpaceND_types_py.h
+        topology/KhalimskySpaceND_declare_py.h
+        topology/KhalimskySpaceND_types_py.h
+        topology/Object_declare_py.h
+        topology/Object_types_py.h
+        topology/VoxelComplex_declare_py.h
+        topology/VoxelComplex_types_py.h
+        )
+
 
 # Add the pybind module
 # Use SHARED instead of the default MODULE to allow external plugins to link to it.
@@ -50,6 +84,21 @@ endif ()
 install(FILES ${wrap_header_common}
         DESTINATION ${CMAKE_INSTALL_PYTHONINCLUDEDIR}
         COMPONENT dev)
+install(FILES ${wrap_header_base}
+        DESTINATION ${CMAKE_INSTALL_PYTHONINCLUDEDIR}/base
+        COMPONENT dev)
+install(FILES ${wrap_header_images}
+        DESTINATION ${CMAKE_INSTALL_PYTHONINCLUDEDIR}/images
+        COMPONENT dev)
+install(FILES ${wrap_header_io}
+        DESTINATION ${CMAKE_INSTALL_PYTHONINCLUDEDIR}/io
+        COMPONENT dev)
+install(FILES ${wrap_header_kernel}
+        DESTINATION ${CMAKE_INSTALL_PYTHONINCLUDEDIR}/kernel
+        COMPONENT dev)
+install(FILES ${wrap_header_topology}
+        DESTINATION ${CMAKE_INSTALL_PYTHONINCLUDEDIR}/topology
+        COMPONENT dev)
 
 install(FILES __init__.py
         DESTINATION ${CMAKE_INSTALL_PYTHONLIBDIR}
@@ -68,9 +117,11 @@ add_custom_command(
 
 # Copy and install tables (package_data)
 set(table_folder "${PROJECT_SOURCE_DIR}/src/DGtal/topology/tables")
+
 file(COPY ${table_folder}
         DESTINATION ${CMAKE_BUILD_PYTHONLIBDIR}
         FILES_MATCHING PATTERN "*.zlib")
+
 install(DIRECTORY ${table_folder}
         DESTINATION ${CMAKE_INSTALL_PYTHONLIBDIR}
         COMPONENT runtime
@@ -85,9 +136,6 @@ install(TARGETS _dgtal
         LIBRARY DESTINATION ${CMAKE_INSTALL_PYTHONLIBDIR} COMPONENT runtime
         ARCHIVE DESTINATION ${CMAKE_INSTALL_PYTHONLIBDIR} COMPONENT dev)
 
-install(DIRECTORY "${PROJECT_SOURCE_DIR}/wrap"
-        DESTINATION "${CMAKE_INSTALL_PYTHONLIBDIR}/"
-        FILES_MATCHING PATTERN "*.*h")
 
 # export _dgtal to the build tree
 export(TARGETS _dgtal
@@ -98,6 +146,14 @@ export(TARGETS _dgtal
 add_custom_target(dgtal-install-runtime
         ${CMAKE_COMMAND}
         -DCMAKE_INSTALL_COMPONENT=runtime
+        -P "${PROJECT_BINARY_DIR}/cmake_install.cmake"
+        DEPENDS DGtal _dgtal
+        )
+
+# Add custom target to only install component: runtime (libraries for python)
+add_custom_target(dgtal-install-dev
+        ${CMAKE_COMMAND}
+        -DCMAKE_INSTALL_COMPONENT=dev
         -P "${PROJECT_BINARY_DIR}/cmake_install.cmake"
         DEPENDS DGtal _dgtal
         )

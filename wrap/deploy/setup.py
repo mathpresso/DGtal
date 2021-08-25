@@ -48,7 +48,7 @@ setup(
     py_modules=[
         'dgtalVersion',
     ],
-    download_url=r'https://github.com/DGtal-team/DGtal',
+    download_url=r'https://github.com/mathpresso/DGtal',
     description=r'Digital Geometry Tools and Algorithm Library',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -70,7 +70,7 @@ setup(
     ],
     license='LGPLv3',
     keywords=r'DGtal image digital topology processing',
-    url=r'https://github.com/DGtal-team/DGtal',
+    url=r'https://github.com/mathpresso/DGtal',
     install_requires=[
     ]
 )
